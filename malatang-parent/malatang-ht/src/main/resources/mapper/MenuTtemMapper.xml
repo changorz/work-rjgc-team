@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chang.dao.MenuItemMapper">
+
+    <select id="findMenuItemById" resultType="MenuItem">
+        select * from menuitem where id = #{id}
+    </select>
+
+    <select id="findAllMenuItem" resultType="MenuItem">
+        select * from menuitem
+    </select>
+
+    <insert id="addMenuItem" parameterType="MenuItem"  useGeneratedKeys="true" keyProperty="id">
+        insert into menuitem(weight, title, icon, text, tourl) value (#{weight},#{title},#{icon},#{text},#{tourl})
+    </insert>
+
+    <delete id="deleteMenuItem" parameterType="int">
+        delete from menuitem where id = #{id}
+    </delete>
+
+    <update id="updataMenuItem" parameterType="map">
+        update menuitem
+        <set>
+            <if test="weight != null">weight = #{weight}, </if>
+            <if test="title != null">title = #{title}, </if>
+            <if test="icon != null">icon = #{icon}, </if>
+            <if test="text != null">text = #{text}, </if>
+            <if test="tourl != null">tourl = #{tourl}, </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findAllGuoup" resultType="MenuItem">
+        SELECT * FROM `menuitem` GROUP BY title desc
+    </select>
+
+    <select id="findMenuItemByTitle" resultType="MenuItem">
+        SELECT * FROM `menuitem` where title = #{title}
+    </select>
+
+</mapper>

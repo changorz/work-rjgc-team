@@ -1,0 +1,10 @@
+server:
+  port: 9001
+
+## ali-oss
+#ali:
+#  oss:
+#    endpoint: http://oss-cn-beijing.aliyuncs.com
+#    accessKeyId: LTAI4G13rFHYc89gtRwRGh1w
+#    accessKeySecret: eUd0yO0uf3INqUvXNiSDgRD4y3j3wP
+#    bucketName: chang1024

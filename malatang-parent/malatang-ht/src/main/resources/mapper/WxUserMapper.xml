@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chang.dao.WxUserMapper">
+
+    <insert id="addWxUser" parameterType="WxUser">
+        INSERT INTO `wxuser`
+        ( `openid`, `nickname`, `headImgUrl`, `country`, `province`,
+        `city`, `sex`, `logincount`, `endtimt`, `flag`)
+        VALUES
+	( #{openid}, #{nickname}, #{headImgUrl}, #{country}, #{province},
+	#{city}, #{sex}, #{logincount}, #{endtimt}, '0');
+    </insert>
+
+    <select id="findWxUserByOpenid" resultType="WxUser">
+        select * from wxuser where openid = #{openid}
+    </select>
+    
+    <update id="updataWxUser" parameterType="map">
+        update wxuser 
+        <set>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="headImgUrl != null">headImgUrl = #{headImgUrl},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="logincount != null">logincount = #{logincount},</if>
+            <if test="endtimt != null">endtimt = #{endtimt},</if>
+            <if test="xh != null">xh = #{xh},</if>
+            <if test="flag != null">flag = #{flag},</if>
+        </set>
+        where openid = #{openid}
+    </update>
+</mapper>

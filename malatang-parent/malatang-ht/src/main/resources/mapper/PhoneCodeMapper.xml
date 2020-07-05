@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chang.dao.PhoneCodeMapper">
+
+    <insert id="addPhoneCode" parameterType="PhoneCode" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        insert into phonecode(name, number) value (#{name}, #{number})
+    </insert>
+
+    <insert id="addPhoneCodeList" parameterType="PhoneCode">
+        insert into
+        phonecode(name, number)
+        values
+        <foreach collection="list" item="phoneCode" separator=",">
+            (
+            #{phoneCode.name}, #{phoneCode.number}
+            )
+        </foreach>
+    </insert>
+
+    <update id="upudataPhoneCode" parameterType="PhoneCode">
+        update phonecode
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="number != null"> number = #{number}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePhoneCodeById" parameterType="int">
+        delete from phonecode where id = #{id}
+    </delete>
+
+    <update id="deleteAllPhoneCode">
+        TRUNCATE TABLE phonecode
+    </update>
+
+    <select id="getAllPhoneCodeCount" resultType="int">
+        select count(*) from phonecode
+    </select>
+
+    <select id="getAllPhoneCode" resultType="PhoneCode">
+        select * from phonecode
+    </select>
+
+    <select id="findPhoneCodeByPage" resultType="PhoneCode">
+        select * from phonecode limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="findPhoneCodeByName" resultType="PhoneCode">
+        select * from phonecode where name LIKE #{name}
+    </select>
+
+</mapper>

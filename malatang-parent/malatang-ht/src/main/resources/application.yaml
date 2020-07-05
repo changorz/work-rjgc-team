@@ -1,0 +1,59 @@
+server:
+  port: 9898
+
+
+spring:
+  datasource:
+    #数据源基本配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/jw?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: root
+    #数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+#mybatis的配置
+mybatis:
+  typeAliasesPackage: chang.pojo
+  mapperLocations: classpath:mapper/*.xml
+# 这个包的日为debug，可以打印SQL语句
+logging:
+  level:
+    chang:
+      mapper: debug
+
+
+# ali-oss
+ali:
+  oss:
+    endpoint: http://oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI4G13rFHYc89gtRwRGh1w
+    accessKeySecret: eUd0yO0uf3INqUvXNiSDgRD4y3j3wP
+    bucketName: chang1024
+
+
+# 微信配置
+wx:
+  mp:
+    configs:
+      - appId: wx22896c5aff78e935
+        secret: 6ce1e940ab0ccf6fea214eca8c661dff
+        token: atd1234564564536456456
+        aesKey: 123
+    url: http://swxy.online/OAuth

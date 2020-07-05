@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chang.dao.GradeMapper">
+
+    <insert id="addGrade" parameterType="Grade">
+        insert into grade(openid, number) values (#{openid}, #{number})
+    </insert>
+
+    <select id="findGradeByOpenid" resultType="Grade">
+        select * from grade where openid = #{openid}
+    </select>
+
+    <select id="getAvg" resultType="double">
+        select avg(number) from grade
+    </select>
+
+</mapper>

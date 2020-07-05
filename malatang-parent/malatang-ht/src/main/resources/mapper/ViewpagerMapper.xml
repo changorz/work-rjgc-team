@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chang.dao.ViewpagerMapper">
+
+    <select id="findViewpagerById" resultType="Viewpager">
+        select * from viewpager where id = #{id}
+    </select>
+
+    <select id="findAllViewpager" resultType="Viewpager">
+        select * from viewpager
+    </select>
+
+    <insert id="addViewpager" parameterType="Viewpager" useGeneratedKeys="true" keyProperty="id">
+        insert into viewpager(url) value (#{url})
+    </insert>
+    
+    <delete id="deleteViewpager" parameterType="int">
+        delete from viewpager where id = #{id}
+    </delete>
+
+</mapper>

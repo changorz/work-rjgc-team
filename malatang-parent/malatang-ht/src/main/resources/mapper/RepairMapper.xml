@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chang.dao.RepairMapper">
+
+    <insert id="addRepair" parameterType="Repair" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        repair(xh, name, xqid, kcbh, kcmc, kcsx, kcxz, zcj, xf, skyx, sknj, skzy, skbj, rkls, endtime)
+        value(#{xh}, #{name}, #{xqid}, #{kcbh}, #{kcmc}, #{kcsx}, #{kcxz}, #{zcj}, #{xf}, #{skyx}, #{sknj}, #{skzy}, #{skbj}, #{rkls}, #{endTime})
+    </insert>
+
+<!--    void addRepairList(List<Repair> repairs);-->
+    <insert id="addRepairList" parameterType="Repair">
+        insert into
+        repair(xh, name, xqid, kcbh, kcmc, kcsx, kcxz, zcj, xf, skyx, sknj, skzy, skbj, rkls, endtime)
+        values
+        <foreach collection="list" item="repair" separator=",">
+        (
+            #{repair.xh}, #{repair.name}, #{repair.xqid}, #{repair.kcbh}, #{repair.kcmc},#{repair.kcsx}, #{repair.kcxz},
+             #{repair.zcj},#{repair.xf}, #{repair.skyx}, #{repair.sknj}, #{repair.skzy}, #{repair.skbj}, #{repair.rkls}, #{repair.endTime}
+        )
+        </foreach>
+    </insert>
+
+    <delete id="deleteRepair" parameterType="int">
+        delete from repair where id = #{id}
+    </delete>
+
+    <update id="deleteRepairAll">
+        TRUNCATE TABLE repair
+    </update>
+
+    <select id="findPage" resultType="Repair">
+        select * from repair limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="findByXhOrName" resultType="Repair">
+        select * from repair where xh = #{xh} or name = #{name}
+    </select>
+
+    <select id="findPageByMap" resultType="Repair">
+        select * from repair
+        <where>
+            <if test="map.kcmc != null">kcmc like #{map.kcmc}</if>
+            <if test="map.skbj != null">and skbj like #{map.skbj}</if>
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="findPageByMapCount" resultType="int">
+        select count(*) from repair
+        <where>
+            <if test="map.kcmc != null">kcmc like #{map.kcmc}</if>
+            <if test="map.skbj != null">and skbj like #{map.skbj}</if>
+        </where>
+    </select>
+
+    <select id="getRepairCount" resultType="int">
+        SELECT count(*) FROM repair
+    </select>
+
+    <select id="getAllBj" resultType="Repair">
+        select skbj from repair GROUP BY skbj
+    </select>
+
+    <select id="getAllKc" resultType="Repair">
+        select kcmc from repair GROUP BY kcmc
+    </select>
+
+</mapper>
